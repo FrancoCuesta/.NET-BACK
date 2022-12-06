@@ -2,8 +2,10 @@
 using BusinessLayer.Interfaces;
 using DataAccessLayer.Implementations;
 using DataAccessLayer.Interfaces;
+using DataAccessLayer.Migrations;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
+using System.Collections.Generic;
 
 namespace WebAPI.Controllers
 {
@@ -19,6 +21,9 @@ namespace WebAPI.Controllers
             _dal = new DAL_Penca();
             _bl = new BL_Penca(_dal);
         }
+
+        [HttpGet("GetUsuarios")]
+        public List<DataAccessLayer.Models.Users>? GetUsuarios(int idP) => _bl.GetUsuarios(idP);
 
         [HttpGet("GetMisPencas/{Email}")]
         public IEnumerable<Penca> GetPencasPrivada(string Email) => _bl.GetPencasPrivada(Email);
@@ -52,5 +57,5 @@ namespace WebAPI.Controllers
 
         [HttpPut("Finalizar")]
         public Penca Finalizar(int idP) => _bl.finalizar(idP);
-    }
+        }
 }

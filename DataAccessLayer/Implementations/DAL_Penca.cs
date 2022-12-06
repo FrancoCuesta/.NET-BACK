@@ -29,7 +29,7 @@ namespace DataAccessLayer.Implementations
             }
         }
 
-        public Shared.Penca? Get(int id)
+        public Shared.Penca Get(int id)
         {
             using (TuPencaContext db = new TuPencaContext())
             {
@@ -223,6 +223,21 @@ namespace DataAccessLayer.Implementations
                     return p.ToEntity();
                 }
                 return p.ToEntity();
+            }
+        }
+
+        public List<Models.Users> GetUsuarios(int idP)
+        {
+            using (TuPencaContext db = new TuPencaContext())
+            {
+                List < Models.Users> users = new List<Models.Users>();
+                List<Models.User_Penca> user_penca = db.User_Penca.Where(x => x.PencaId == idP).OrderBy(x => x.puntaje).ToList();
+                foreach(Models.User_Penca up in user_penca)
+                {
+                    Models.Users u = db.Users.Where(x => x.Id == up.UserId).FirstOrDefault();
+                    if(u!= null) users.Add(u);
+                }
+                return users;
             }
         }
     }

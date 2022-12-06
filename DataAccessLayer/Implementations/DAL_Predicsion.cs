@@ -15,8 +15,6 @@ namespace DataAccessLayer.Implementations
         {
             using(TuPencaContext db = new TuPencaContext())
             {
-                var user = db.Users.Where(x => x.Email == e.UserId).FirstOrDefault();
-                e.UserId = user.Id;
                 Models.Predicsion nuevo = Models.Predicsion.ToSave(e);
                 db.Predicsion.Add(nuevo);
                 db.SaveChanges();
@@ -30,7 +28,7 @@ namespace DataAccessLayer.Implementations
             {
                 var user = db.Users.Where(x => x.Email == e.UserId).FirstOrDefault();
                 e.UserId = user.Id;
-                return db.Predicsion.Where(x => x.Pencaid == e.Pencaid && x.Partidoid == e.Partidoid && x.UserId == e.UserId).FirstOrDefault()?.ToEntity();
+                return db.Predicsion.Where(x => x.Pencaid == e.Pencaid && x.Partidoid == e.Partidoid && x.UserId == e.UserId).FirstOrDefault().ToEntity();
             }
         }
 
