@@ -27,7 +27,7 @@ namespace DataAccessLayer.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=FRANCO\\SL;Database=Penca;User Id=sa;Password=1234;");
+                optionsBuilder.UseSqlServer("Server=localhost;Database=Penca;User Id=sa;Password=1234;");
                 //optionsBuilder.UseSqlServer("Server=localhost,14330;Database=TuPenca;User Id=sa;Password=Tisj*2022!;");
             }
         }

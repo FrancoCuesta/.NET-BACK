@@ -219,7 +219,8 @@ namespace DataAccessLayer.Implementations
                     premio.estado = false;
                     premio.monto = (float)monto;
                     premio.descripcion = "Felisidades por GANAR";
-                    db.Premios.Add(premio);
+                    db.Premios.Add(premio); 
+                    db.SaveChanges();
                     return p.ToEntity();
                 }
                 return p.ToEntity();

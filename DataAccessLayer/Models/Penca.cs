@@ -40,7 +40,6 @@ namespace DataAccessLayer.Models
                 cant_participantes = cant_participantes,
                 priada = priada,
                 codigo = codigo,
-                User_Penca = (ICollection<Shared.User_Penca>)User_Penca,
                 CampeonatoId = CampeonatoId,
             };
         }

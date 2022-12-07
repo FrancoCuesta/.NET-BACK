@@ -17,7 +17,7 @@ namespace DataAccessLayer.Interfaces
         
         Predicsion updatePredicsion(Predicsion e);
 
-        Predicsion existe(Predicsion e);
+        Predicsion? existe(Predicsion e);
 
     }
 }
