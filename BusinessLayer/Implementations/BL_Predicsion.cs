@@ -20,9 +20,8 @@ namespace BusinessLayer.Implementations
         public Predicsion AddPredicsion(Predicsion e)
         {
             if(_Predicsion.existe(e)!= null)
-            {
                 throw new Exception("Ya existe la predicsion");
-            }
+            
             return _Predicsion.AddPredicsion(e);
         }
 

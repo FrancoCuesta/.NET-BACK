@@ -45,5 +45,15 @@ namespace BusinessLayer.Implementations
         {
             return _premios.GetPremio(id);
         }
+
+        public IEnumerable<Premio> getUsuario(string email)
+        {
+            return _premios.getUsuario(email);
+        }
+
+        public Premio cuenta(Premio p)
+        {
+            return _premios.cuenta(p);
+        }
     }
 }

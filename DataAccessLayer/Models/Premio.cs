@@ -20,8 +20,9 @@ namespace DataAccessLayer.Models
 
         [MinLength(1), Required ]
 
-        public float monto { get; set; }
+        public Double monto { get; set; }
         public bool estado { get; set; }
+        public string cuenta { get; set; }
 
         [ForeignKey("User"), Required]
         public string UserId { get; set; }
@@ -30,6 +31,7 @@ namespace DataAccessLayer.Models
         [ForeignKey("Penca"), Required]
         public int PencaId { get; set; }
         public virtual Penca Penca { get; set; }
+
         
         public Shared.Premio ToEntity()
         {
@@ -40,7 +42,8 @@ namespace DataAccessLayer.Models
                 monto = monto,
                 estado = estado,
                 UserId = UserId,
-                PencaId = PencaId
+                PencaId = PencaId,
+                cuenta = cuenta
             };
         }
 
@@ -53,7 +56,8 @@ namespace DataAccessLayer.Models
                 monto = x.monto,
                 estado = x.estado,
                 UserId = x.UserId,
-                PencaId = x.PencaId
+                PencaId = x.PencaId,
+                cuenta = x.cuenta
             };
         }
 

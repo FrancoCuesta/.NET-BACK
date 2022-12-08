@@ -28,6 +28,11 @@ namespace WebAPI.Controllers
             return _bl.GetPremios();
         }
 
+        [HttpGet("getUsuario/{email}")]
+        public IEnumerable<Premio> getUsuario(string email)
+        {
+            return _bl.getUsuario(email);
+        }
         // GET api/<PremiosController>/1
         [HttpGet("{id}")]
         public Premio Get(int id)
@@ -42,9 +47,14 @@ namespace WebAPI.Controllers
             return _bl.AddPremio(p);
         }
         [HttpPut]
-        public Premio Put(Premio p )
+        public Premio Put(Premio p)
         {
             return _bl.SetPremio(p);
+        }
+        [HttpPut("cuenta")]
+        public Premio cuenta(Premio p)
+        {
+            return _bl.cuenta(p);
         }
 
         // DELETE api/<PremiosController>/1

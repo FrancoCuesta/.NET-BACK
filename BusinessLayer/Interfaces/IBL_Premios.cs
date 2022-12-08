@@ -19,5 +19,7 @@ namespace BusinessLayer.Interfaces
         void DeletePremio(int id);
 
         Premio SetPremio(Premio premio);
+        IEnumerable<Premio> getUsuario(string email);
+        Premio cuenta(Premio p);
     }
 }

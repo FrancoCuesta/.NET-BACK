@@ -21,9 +21,9 @@ namespace WebAPI.Controllers
             _dal = new DAL_Penca();
             _bl = new BL_Penca(_dal);
         }
-
+        /*
         [HttpGet("GetUsuarios")]
-        public List<DataAccessLayer.Models.Users>? GetUsuarios(int idP) => _bl.GetUsuarios(idP);
+        public List<DataAccessLayer.Models.Users>? GetUsuarios(int idP) => _bl.GetUsuarios(idP);*/
 
         [HttpGet("GetMisPencas/{Email}")]
         public IEnumerable<Penca> GetPencasPrivada(string Email) => _bl.GetPencasPrivada(Email);

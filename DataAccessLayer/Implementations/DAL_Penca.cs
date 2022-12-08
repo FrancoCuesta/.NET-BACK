@@ -129,13 +129,13 @@ namespace DataAccessLayer.Implementations
         }
 
         public Shared.User_Penca SetUsuarios(string u, int p){
-            using (TuPencaContext db = new TuPencaContext()){
-                Shared.Penca existe = Get(p);
+            using (TuPencaContext db = new TuPencaContext())
+            {
+                Penca? existe = db.Penca.Where(x => x.Id == p).FirstOrDefault();
                 if (existe == null)
                     throw new Exception("No existe una Penca con ese id");
                 else
                 {
-                    Models.Penca penca = Models.Penca.ToSave(existe);
                     Models.Users user = db.Users.Where(x => x.Email == u).FirstOrDefault();
                     u = user.Id;
                     if (user == null)
@@ -149,6 +149,7 @@ namespace DataAccessLayer.Implementations
                             user_penca.PencaId = p;
                             user_penca.UserId = u;
                             db.User_Penca.Add(user_penca);
+                            existe.participantes += 1;
                             db.SaveChanges();
                             return user_penca.ToEntity();
                         }
@@ -163,7 +164,7 @@ namespace DataAccessLayer.Implementations
         {
             using (TuPencaContext db = new TuPencaContext())
             {
-                Shared.Penca existe = Get(p);
+                Penca ? existe = db.Penca.Where(x => x.Id == p).FirstOrDefault();
                 if (existe == null)
                     throw new Exception("No existe una Penca con ese id");
                 else
@@ -179,6 +180,7 @@ namespace DataAccessLayer.Implementations
                         else
                         {
                             db.User_Penca.Remove(user_penca);
+                            existe.participantes -= 1;
                             db.SaveChanges();
                             return user_penca.ToEntity();
                         }
@@ -204,26 +206,31 @@ namespace DataAccessLayer.Implementations
             using (TuPencaContext db = new TuPencaContext())
             {
                 Models.Penca p = db.Penca.Where(x => x.Id == pencaid).FirstOrDefault();
-                p.activa = false;
-                db.Penca.Update(p);
-                Double poso = p.cant_participantes * p.costo_entrada;
-                Double comision = poso * (p.comision / 100);
-                Double monto = poso - comision;
-                //agregar preios
-                List<Models.User_Penca> user_penca = db.User_Penca.Where(x => x.PencaId == pencaid).OrderBy(x => x.puntaje).ToList();
-                foreach (Models.User_Penca up in user_penca)
-                {
-                    Models.Premio premio = new Models.Premio();
-                    premio.PencaId = pencaid;
-                    premio.UserId = up.UserId;
-                    premio.estado = false;
-                    premio.monto = (float)monto;
-                    premio.descripcion = "Felisidades por GANAR";
-                    db.Premios.Add(premio); 
-                    db.SaveChanges();
-                    return p.ToEntity();
+                if (p != null) {
+                    if(p.activa == true) {
+                        p.activa = false;
+                        db.Penca.Update(p);
+                        List<Models.User_Penca> user_penca = db.User_Penca.Where(x => x.PencaId == pencaid).OrderBy(x => x.puntaje).ToList();
+                        Double poso = p.participantes * p.costo_entrada;
+                        Double comision = poso * (p.comision / 100);
+                        Double monto = poso - comision;
+                        foreach (Models.User_Penca up in user_penca)
+                        {
+                            Models.Premio premio = new Models.Premio();
+                            premio.PencaId = pencaid;
+                            premio.UserId = up.UserId;
+                            premio.estado = false;
+                            premio.monto = monto;
+                            premio.cuenta = "";
+                            premio.descripcion = "Felisidades por GANAR";
+                            db.Premios.Add(premio); 
+                            db.SaveChanges();
+                            return p.ToEntity();
+                        }
+                    }
+                    throw new Exception("La penca ya esta finalizada");
                 }
-                return p.ToEntity();
+                throw new Exception("La penca no existe");
             }
         }
 

@@ -18,5 +18,7 @@ namespace DataAccessLayer.Interfaces
         Premio SetPremio(Premio premio);
         void DeletePremio(int id);
         Premio Get(int id);
+        IEnumerable<Premio> getUsuario(string email);
+        Premio cuenta(Premio p);
     }
 }

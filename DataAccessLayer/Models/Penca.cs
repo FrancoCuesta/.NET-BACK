@@ -20,6 +20,7 @@ namespace DataAccessLayer.Models
         public Double poso { get; set; }
         public Double comision { get; set; }
         public int cant_participantes { get; set; }
+        public int participantes { get; set; }
         public bool priada { get; set; }
         public int codigo { get; set; }
         public bool activa { get; set; }
